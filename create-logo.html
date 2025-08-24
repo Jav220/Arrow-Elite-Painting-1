@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Elite Painting Logo Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .logo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .logo-version {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: white;
+        }
+        .logo-version h3 {
+            margin-top: 15px;
+            color: #1e40af;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .download-btn {
+            background: #1e40af;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .download-btn:hover {
+            background: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Arrow Elite Painting - Professional Logo Designs</h1>
+        
+        <div class="logo-container">
+            <!-- Logo Version 1: Horizontal Layout -->
+            <div class="logo-version">
+                <canvas id="logo1" width="400" height="120"></canvas>
+                <h3>Horizontal Logo (Recommended)</h3>
+                <button class="download-btn" onclick="downloadLogo('logo1', 'arrow-elite-horizontal')">Download PNG</button>
+            </div>
+            
+            <!-- Logo Version 2: Compact Version -->
+            <div class="logo-version">
+                <canvas id="logo2" width="300" height="100"></canvas>
+                <h3>Compact Version</h3>
+                <button class="download-btn" onclick="downloadLogo('logo2', 'arrow-elite-compact')">Download PNG</button>
+            </div>
+            
+            <!-- Logo Version 3: Icon Only -->
+            <div class="logo-version">
+                <canvas id="logo3" width="100" height="100"></canvas>
+                <h3>Icon Only</h3>
+                <button class="download-btn" onclick="downloadLogo('logo3', 'arrow-elite-icon')">Download PNG</button>
+            </div>
+            
+            <!-- Logo Version 4: Vertical Layout -->
+            <div class="logo-version">
+                <canvas id="logo4" width="250" height="200"></canvas>
+                <h3>Vertical Layout</h3>
+                <button class="download-btn" onclick="downloadLogo('logo4', 'arrow-elite-vertical')">Download PNG</button>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 10px;">
+            <h3>Logo Usage Guidelines:</h3>
+            <ul>
+                <li><strong>Primary Logo:</strong> Use the horizontal version for headers and main branding</li>
+                <li><strong>Compact Version:</strong> Perfect for smaller spaces and mobile navigation</li>
+                <li><strong>Icon Only:</strong> Use as favicon or app icon</li>
+                <li><strong>Vertical Layout:</strong> Ideal for business cards and vertical layouts</li>
+                <li><strong>Minimum Size:</strong> Never use smaller than 120px wide for horizontal versions</li>
+                <li><strong>Colors:</strong> Primary blue (#1e40af), Secondary blue (#3b82f6), Accent orange (#f59e0b)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function drawArrow(ctx, x, y, scale = 1) {
+            ctx.save();
+            ctx.scale(scale, scale);
+            
+            // Arrow body
+            const gradient = ctx.createLinearGradient(x, y, x + 60, y);
+            gradient.addColorStop(0, '#1e40af');
+            gradient.addColorStop(1, '#3b82f6');
+            
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.roundRect(x + 10, y + 35, 45, 8, 4);
+            ctx.fill();
+            
+            // Arrow head
+            ctx.beginPath();
+            ctx.moveTo(x + 55, y + 25);
+            ctx.lineTo(x + 80, y + 40);
+            ctx.lineTo(x + 55, y + 55);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Paint brush detail
+            ctx.fillStyle = '#f59e0b';
+            ctx.beginPath();
+            ctx.roundRect(x + 5, y + 32, 8, 14, 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#dc2626';
+            ctx.beginPath();
+            ctx.roundRect(x + 3, y + 30, 12, 4, 2);
+            ctx.fill();
+            
+            ctx.restore();
+        }
+        
+        function drawText(ctx, x, y, scale = 1) {
+            ctx.save();
+            ctx.scale(scale, scale);
+            
+            // Company name gradient
+            const textGradient = ctx.createLinearGradient(x, y, x + 200, y);
+            textGradient.addColorStop(0, '#1e3a8a');
+            textGradient.addColorStop(1, '#1e40af');
+            
+            // "ARROW"
+            ctx.fillStyle = textGradient;
+            ctx.font = 'bold 28px Arial, sans-serif';
+            ctx.fillText('ARROW', x, y);
+            
+            // "ELITE PAINTING"
+            ctx.fillStyle = '#1e40af';
+            ctx.font = '600 24px Arial, sans-serif';
+            ctx.fillText('ELITE PAINTING', x, y + 25);
+            
+            ctx.restore();
+        }
+        
+        function drawTagline(ctx, x, y, scale = 1) {
+            ctx.save();
+            ctx.scale(scale, scale);
+            ctx.fillStyle = '#6b7280';
+            ctx.font = '400 12px Arial, sans-serif';
+            ctx.fillText('PROFESSIONAL PAINTING SERVICES', x, y);
+            ctx.restore();
+        }
+        
+        // Logo 1: Horizontal Layout
+        const canvas1 = document.getElementById('logo1');
+        const ctx1 = canvas1.getContext('2d');
+        drawArrow(ctx1, 10, 20);
+        drawText(ctx1, 100, 45);
+        drawTagline(ctx1, 100, 90);
+        
+        // Logo 2: Compact Version
+        const canvas2 = document.getElementById('logo2');
+        const ctx2 = canvas2.getContext('2d');
+        drawArrow(ctx2, 5, 10, 0.8);
+        drawText(ctx2, 80, 35, 0.8);
+        
+        // Logo 3: Icon Only
+        const canvas3 = document.getElementById('logo3');
+        const ctx3 = canvas3.getContext('2d');
+        drawArrow(ctx3, 10, 10, 0.9);
+        
+        // Logo 4: Vertical Layout
+        const canvas4 = document.getElementById('logo4');
+        const ctx4 = canvas4.getContext('2d');
+        drawArrow(ctx4, 85, 20, 0.7);
+        drawText(ctx4, 30, 120, 0.8);
+        drawTagline(ctx4, 35, 160, 0.8);
+        
+        function downloadLogo(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename + '.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Polyfill for roundRect if not supported
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius) {
+                this.beginPath();
+                this.moveTo(x + radius, y);
+                this.lineTo(x + width - radius, y);
+                this.quadraticCurveTo(x + width, y, x + width, y + radius);
+                this.lineTo(x + width, y + height - radius);
+                this.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                this.lineTo(x + radius, y + height);
+                this.quadraticCurveTo(x, y + height, x, y + height - radius);
+                this.lineTo(x, y + radius);
+                this.quadraticCurveTo(x, y, x + radius, y);
+                this.closePath();
+            };
+        }
+    </script>
+</body>
+</html>
